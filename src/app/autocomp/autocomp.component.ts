@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {debounceTime, filter, Subject, tap} from "rxjs";
 
 @Component({
@@ -11,14 +11,18 @@ export class AutocompComponent implements OnInit {
 
   title = 'autocomplete';
 
+  @ViewChild('myValue',{
+    static : false
+  }) myValue : ElementRef<HTMLInputElement>
+
   countries = ["Greece","USA","China","N.Korea"];
 
   filteredOptions : any;
 
 
-  // @ts-ignore
-  formGroup: FormGroup;
-  constructor( private fb : FormBuilder){}
+
+  formGroup: FormGroup<{country: FormControl<string>}>;
+  constructor(){}
 
   ngOnInit(){
     this.initForm();
@@ -26,12 +30,15 @@ export class AutocompComponent implements OnInit {
   }
 
   initForm(){
-    this.formGroup = this.fb.group({
-      'country' : ['']
+    this.formGroup = new FormGroup({
+        country: new FormControl()
     })
 
-    // @ts-ignore
-    this.formGroup.get('country').valueChanges.pipe(
+
+    this.formGroup.get('country')!.valueChanges.pipe(
+      tap(e => {
+        console.log('tap1', e);
+      }),
       filter(e => {
         return !String(e).toLowerCase().includes('gr')
       }),
