@@ -17,7 +17,7 @@ export class AutocompComponent implements OnInit {
 
   countries = ["Greece","USA","China","N.Korea"];
 
-  filteredOptions : any;
+  filteredOptions : string[];
 
 
 

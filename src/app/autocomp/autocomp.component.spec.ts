@@ -19,7 +19,7 @@ fdescribe('AutocompComponent', () => {
       declarations: [ AutocompComponent,MatAutocomplete],
     //  providers: [FormBuilder],
       imports: [ ReactiveFormsModule,MatAutocompleteModule,MatInputModule,NoopAnimationsModule],
-      // schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      // schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
       .compileComponents();
   });
